@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import MainPage from './main';
+import SignUp from './signup';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      key: undefined,
+    };
+  }
+
+  setKey = (key, remember) => {
+    this.setState({ key });
+    if(remember)
+      localStorage.setItem('local_key', key);
+  }
+
+  signOut = () => {
+    this.setKey({key: undefined});
+    localStorage.removeItem('local_key');
+  }
+
+  render() {
+    const { key } = this.state; //每次启动时的key
+    const local_key = localStorage.getItem('local_key'); //本地存储的key
+
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" render={ () => <Redirect to="/home" /> } />
+          <Route 
+            path="/home"
+            render={ ({history, match}) => <MainPage history={history} match={match} user_key={ local_key ? local_key : key } setKey={this.setKey} signOut={this.signOut} /> } 
+          />
+          <Route
+            path="/signup"
+            render={ ({history, match}) => <SignUp history={history} match={match} user_key={ local_key ? local_key : key } /> }
+          />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
