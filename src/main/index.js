@@ -58,11 +58,12 @@ export default function MainPage(props) {
         const classes = useStyles();
         const handleListItemClick = (url) => props.history.push(url);
         const handleSignUp = () => props.history.push("/signup");
+        const handleLogin =() => props.history.push("/login");
 
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Container maxWidth="lg">
+                <Container maxWidth="md">
                     <Toolbar className={classes.toolbar}>
                         <Typography className={classes.toolbarTitle} component="h1" variant="h5" align="center">
                             Blog
@@ -70,7 +71,7 @@ export default function MainPage(props) {
                         <IconButton>
                             <SearchIcon />
                         </IconButton>
-                        <Button size="small">
+                        <Button size="small" onClick={handleLogin}>
                             登录
                         </Button>
                         <Button size="small" onClick={handleSignUp}>
@@ -93,39 +94,38 @@ export default function MainPage(props) {
 
                     </Toolbar>
                     <div>
-                    <Paper className={classes.mainFeaturedPost}>        
-                        <Grid container>
-                            <Grid item md={6}>
-                                <div className={classes.mainFeaturedPostContent}>
-                                    <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                                        Title of a longer featured blog post
-                                    </Typography>
-                                    <Typography variant="h5" color="inherit" paragraph>
-                                        Multiple lines of text that form the lede, informing new readers quickly and
-                                        efficiently about what&apos;s most interesting in this post&apos;s contents.
-                                    </Typography>
-                                </div>
+                        <Paper className={classes.mainFeaturedPost}>        
+                            <Grid container>
+                                <Grid item md={6}>
+                                    <div className={classes.mainFeaturedPostContent}>
+                                        <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                                            Title of a longer featured blog post
+                                        </Typography>
+                                        <Typography variant="h5" color="inherit" paragraph>
+                                            Short introduction.
+                                        </Typography>
+                                    </div>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Paper>
-                    <div style={{height:"50vh"}}>
-                    {/* <Router> */}
-                        <Switch>
-                            <Route exact path={`${match.url}`} render={() => <Home history={history} match={match} user_key={user_key} />} />
-                            <Route path={`${match.url}/blog`} render={() => <Blog history={history} match={match} user_key={user_key} />} />
-                            <Route path={`${match.url}/create`} render={() => <Create history={history} match={match} user_key={user_key} />} />
-                        </Switch>
-                    {/* </Router> */}
-                    </div>                   
+                        </Paper>
+                        <div style={{height:"80vh"}}>
+                        {/* <Router> */}
+                            <Switch>
+                                <Route exact path={`${match.url}`} render={() => <Home history={history} match={match} user_key={user_key} />} />
+                                <Route path={`${match.url}/blog`} render={() => <Blog history={history} match={match} user_key={user_key} />} />
+                                <Route path={`${match.url}/create`} render={() => <Create history={history} match={match} user_key={user_key} />} />
+                            </Switch>
+                        {/* </Router> */}
+                        </div>                   
                     </div>
-                <footer style={{marginBottom:"20px"}}>
-                    <Typography variant="body1" align="center">
-                        Footer
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary" align="center" gutterBottom>
-                        Something here to give the footer a purpose!
-                    </Typography>
-                </footer>
+                    <footer style={{marginBottom:"20px"}}>
+                        <Typography variant="body1" align="center">
+                            Footer
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary" align="center" gutterBottom>
+                            Something here to give the footer a purpose!
+                        </Typography>
+                    </footer>
                 </Container>
             </React.Fragment>   
         );

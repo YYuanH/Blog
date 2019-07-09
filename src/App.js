@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import MainPage from './main';
 import SignUp from './signup';
+import Login from './login';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,6 +38,10 @@ class App extends React.Component {
           <Route
             path="/signup"
             render={ ({history, match}) => <SignUp history={history} match={match} user_key={ local_key ? local_key : key } /> }
+          />
+          <Route
+            path="/login"
+            render={ ({history, match}) => <Login history={history} match={match} user_key={ local_key ? local_key : key } setKey={this.setKey} /> }
           />
         </Switch>
       </Router>
